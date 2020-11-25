@@ -1,4 +1,4 @@
-/*
+*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,6 +26,9 @@ public class Jeu {
     private HashMap<Entite, Integer> cmptDeplV = new HashMap<Entite, Integer>();
 
     private Heros hector;
+    private Bot [] smicks;
+    private Corde [] cordes;
+    private Colonne [] colonnes;
 
     private HashMap<Entite, Point> map = new  HashMap<Entite, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     private Entite[][] grilleEntites = new Entite[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
@@ -57,6 +60,27 @@ public class Jeu {
         hector = new Heros(this);
         addEntite(hector, 2, 1);
 
+        /* tout marche, il suffit de les placer au bon endroits au final(semi-random car les collones doivent etre a cote des plateformes, et les smick sur des plateformes)*/
+        smicks = new Bot[2];
+        for(int i=0;i<2;++i){
+            smicks[i] = new Bot(this);
+            addEntite(smicks[i],4+i,2);
+        }
+
+        colonnes = new Colonne[2];
+        for(int i=0;i<2;++i){
+            colonnes[i] = new Colonne(this);
+            addEntite(colonnes[i],4+i,3);
+        }
+
+        cordes = new Corde[2];
+        for(int i=0;i<2;++i){
+            cordes[i] = new Corde(this);
+            addEntite(cordes[i],5,5-i);
+        }
+
+
+
         Gravite g = new Gravite();
         g.addEntiteDynamique(hector);
         ordonnanceur.add(g);
@@ -78,6 +102,8 @@ public class Jeu {
 
         addEntite(new Mur(this), 2, 6);
         addEntite(new Mur(this), 3, 6);
+        addEntite(new Mur(this), 4, 6);
+        addEntite(new Mur(this), 5, 6);
     }
 
     private void addEntite(Entite e, int x, int y) {
@@ -163,7 +189,7 @@ public class Jeu {
         if (contenuDansGrille(p)) {
             retour = grilleEntites[p.x][p.y];
         }
-        
+
         return retour;
     }
 
