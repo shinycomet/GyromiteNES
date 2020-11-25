@@ -30,10 +30,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private int sizeY;
 
     // icones affichées dans la grille
+    private ImageIcon icoBot;
     private ImageIcon icoHero;
     private ImageIcon icoVide;
     private ImageIcon icoMur;
     private ImageIcon icoColonne;
+    private ImageIcon icoCorde;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -53,10 +55,17 @@ public class VueControleurGyromite extends JFrame implements Observer {
             @Override
             public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()) {  // on regarde quelle touche a été pressée
-                    case KeyEvent.VK_LEFT : Controle4Directions.getInstance().setDirectionCourante(Direction.gauche); break;
+                    case KeyEvent.VK_LEFT  : Controle4Directions.getInstance().setDirectionCourante(Direction.gauche); break;
                     case KeyEvent.VK_RIGHT : Controle4Directions.getInstance().setDirectionCourante(Direction.droite); break;
-                    case KeyEvent.VK_DOWN : Controle4Directions.getInstance().setDirectionCourante(Direction.bas); break;
-                    case KeyEvent.VK_UP : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break;
+                    case KeyEvent.VK_DOWN  : Controle4Directions.getInstance().setDirectionCourante(Direction.bas);    break;
+                    case KeyEvent.VK_UP    : Controle4Directions.getInstance().setDirectionCourante(Direction.haut);   break;
+
+                    /* a ajouter les touche pour deplacer, prendre les objets, les deposer * /
+                    case KeyEvent.VK_A :
+                    Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break; //deplacer colonne
+                    case KeyEvent.VK_Z : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break; //prendre objet
+                    case KeyEvent.VK_E : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break; //deposer projet
+                     */
                 }
             }
         });
@@ -64,10 +73,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
 
     private void chargerLesIcones() {
-        icoHero = chargerIcone("Images/Player01.png");
+        icoBot = chargerIcone("Images/Fantome.png");
+        icoHero = chargerIcone("Images/Pacman.png");
         icoVide = chargerIcone("Images/Vide.png");
         icoColonne = chargerIcone("Images/Colonne.png");
-        icoMur = chargerIcone("Images/Wall.png");
+        icoCorde = chargerIcone("Images/Corde.png");
+        icoMur = chargerIcone("Images/Mur.png");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -113,6 +124,10 @@ public class VueControleurGyromite extends JFrame implements Observer {
                 if (jeu.getGrille()[x][y] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
                     // System.out.println("Héros !");
                     tabJLabel[x][y].setIcon(icoHero);
+                } else if (jeu.getGrille()[x][y] instanceof Bot) {
+                    tabJLabel[x][y].setIcon(icoBot);
+                } else if (jeu.getGrille()[x][y] instanceof Corde) {
+                    tabJLabel[x][y].setIcon(icoCorde);
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
                     tabJLabel[x][y].setIcon(icoMur);
                 } else if (jeu.getGrille()[x][y] instanceof Colonne) {
