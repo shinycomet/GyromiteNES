@@ -8,7 +8,5 @@ public abstract class EntiteStatique extends Entite {
         super(_jeu);
     }
 
-    public boolean peutEtreEcrase() { return false; }
-    public boolean peutServirDeSupport() { return true; }
-    public boolean peutPermettreDeMonterDescendre() { return false; };
+
 }

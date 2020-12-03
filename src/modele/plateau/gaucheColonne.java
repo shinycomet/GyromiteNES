@@ -1,7 +1,8 @@
 package modele.plateau;
 
-public class Mur extends EntiteStatique {
-    public Mur(Jeu _jeu) { super(_jeu); }
+public class gaucheColonne extends EntiteStatique {
+
+    public gaucheColonne(Jeu _jeu) { super(_jeu);}
 
     public boolean peutEtreEcrase() { return false; }
     public boolean peutServirDeSupport() { return true; }

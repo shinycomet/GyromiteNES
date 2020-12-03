@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package modele.plateau;
+import modele.plateau.Jeu;
 
 /**
  * Héros du jeu

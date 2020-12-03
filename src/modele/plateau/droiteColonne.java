@@ -1,7 +1,8 @@
 package modele.plateau;
 
-public class Colonne extends EntiteDynamique {
-    public Colonne(Jeu _jeu) { super(_jeu); }
+public class droiteColonne extends EntiteStatique {
+
+    public droiteColonne(Jeu _jeu) { super(_jeu);}
 
     public boolean peutEtreEcrase() { return false; }
     public boolean peutServirDeSupport() { return true; }

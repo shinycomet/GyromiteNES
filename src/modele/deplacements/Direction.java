@@ -10,5 +10,5 @@ package modele.deplacements;
  *
  */
 public enum Direction {
-    haut, bas, gauche, droite
+    haut, bas, gauche, droite, diagBasGauche, diagBasDroite, diagHautGauche, diagHautDroite, deuxHaut, deuxBas
 }

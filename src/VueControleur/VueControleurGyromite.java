@@ -13,8 +13,10 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import modele.deplacements.Colonne;
 import modele.deplacements.Controle4Directions;
 import modele.deplacements.Direction;
+import modele.deplacements.RealisateurDeDeplacement;
 import modele.plateau.*;
 
 
@@ -34,11 +36,15 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoHero;
     private ImageIcon icoVide;
     private ImageIcon icoMur;
+    private ImageIcon icoBombe;
     private ImageIcon icoColonne;
     private ImageIcon icoCorde;
+    private ImageIcon icoRamassable;
+    private ImageIcon icoDroiteColonne;
+    private ImageIcon icoGaucheColonne;
+
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
-
 
     public VueControleurGyromite(Jeu _jeu) {
         sizeX = jeu.SIZE_X;
@@ -59,18 +65,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     case KeyEvent.VK_RIGHT : Controle4Directions.getInstance().setDirectionCourante(Direction.droite); break;
                     case KeyEvent.VK_DOWN  : Controle4Directions.getInstance().setDirectionCourante(Direction.bas);    break;
                     case KeyEvent.VK_UP    : Controle4Directions.getInstance().setDirectionCourante(Direction.haut);   break;
-
-                    /* a ajouter les touche pour deplacer, prendre les objets, les deposer * /
-                    case KeyEvent.VK_A :
-                    Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break; //deplacer colonne
-                    case KeyEvent.VK_Z : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break; //prendre objet
-                    case KeyEvent.VK_E : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break; //deposer projet
-                     */
+                    case KeyEvent.VK_A     : Colonne.getInstance().changerDirectionBleu(); break;
+                    case KeyEvent.VK_B     : Colonne.getInstance().changerDirectionRouge(); break;
                 }
             }
         });
     }
-
 
     private void chargerLesIcones() {
         icoBot = chargerIcone("Images/Fantome.png");
@@ -79,6 +79,10 @@ public class VueControleurGyromite extends JFrame implements Observer {
         icoColonne = chargerIcone("Images/Colonne.png");
         icoCorde = chargerIcone("Images/Corde.png");
         icoMur = chargerIcone("Images/Mur.png");
+        icoRamassable = chargerIcone("Images/Ramassable.png");
+        icoGaucheColonne = chargerIcone("Images/gaucheColonne.png");
+        icoDroiteColonne = chargerIcone("Images/droiteColonne.png");
+        icoBombe = chargerIcone("Images/droiteColonne.png");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -128,10 +132,20 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     tabJLabel[x][y].setIcon(icoBot);
                 } else if (jeu.getGrille()[x][y] instanceof Corde) {
                     tabJLabel[x][y].setIcon(icoCorde);
+                } else if (jeu.getGrille()[x][y] instanceof Bombe) {
+                    tabJLabel[x][y].setIcon(icoBombe);
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
                     tabJLabel[x][y].setIcon(icoMur);
-                } else if (jeu.getGrille()[x][y] instanceof Colonne) {
+                } else if (jeu.getGrille()[x][y] instanceof Ramassable) {
+                    tabJLabel[x][y].setIcon(icoRamassable);
+                } else if (jeu.getGrille()[x][y] instanceof Colonnes) {
                     tabJLabel[x][y].setIcon(icoColonne);
+                } else if (jeu.getGrille()[x][y] instanceof droiteColonne) {
+                    tabJLabel[x][y].setIcon(icoDroiteColonne);
+                } else if (jeu.getGrille()[x][y] instanceof gaucheColonne) {
+                    tabJLabel[x][y].setIcon(icoGaucheColonne);
+                } else if (jeu.getGrille()[x][y] instanceof Vide) {
+                    tabJLabel[x][y].setIcon(icoVide);
                 } else {
                     tabJLabel[x][y].setIcon(icoVide);
                 }
