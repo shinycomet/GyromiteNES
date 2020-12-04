@@ -73,16 +73,16 @@ public class VueControleurGyromite extends JFrame implements Observer {
     }
 
     private void chargerLesIcones() {
-        icoBot = chargerIcone("Images/Fantome.png");
-        icoHero = chargerIcone("Images/Pacman.png");
-        icoVide = chargerIcone("Images/Vide.png");
-        icoColonne = chargerIcone("Images/Colonne.png");
-        icoCorde = chargerIcone("Images/Corde.png");
-        icoMur = chargerIcone("Images/Mur.png");
-        icoRamassable = chargerIcone("Images/Ramassable.png");
-        icoGaucheColonne = chargerIcone("Images/gaucheColonne.png");
-        icoDroiteColonne = chargerIcone("Images/droiteColonne.png");
-        icoBombe = chargerIcone("Images/droiteColonne.png");
+        icoBot = chargerIcone("Images/Smick01.png");
+        icoHero = chargerIcone("Images/Hector01.png");
+        icoVide = chargerIcone("Images/Space.png");
+        icoColonne = chargerIcone("Images/Bluepipe03.png");
+        icoCorde = chargerIcone("Images/Rope.png");
+        icoMur = chargerIcone("Images/Wall01.png");
+        icoRamassable = chargerIcone("Images/Radish.png");
+        icoGaucheColonne = chargerIcone("Images/Platform02.png");
+        icoDroiteColonne = chargerIcone("Images/Platform03.png");
+        icoBombe = chargerIcone("Images/Bomb01.png");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
