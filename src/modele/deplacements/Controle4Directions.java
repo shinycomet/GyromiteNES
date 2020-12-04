@@ -70,7 +70,7 @@ public class Controle4Directions extends RealisateurDeDeplacement {
                         Entite eBas = e.regarderDansLaDirection(Direction.bas);
                         Entite eHaut = e.regarderDansLaDirection(Direction.haut);
 
-                        if (eBas != null && (eBas.peutServirDeSupport() || eHaut.peutPermettreDeMonterDescendre())) {
+                        if (eHaut != null && (eHaut.peutServirDeSupport() || eHaut.peutPermettreDeMonterDescendre())) {
                             if (e.avancerDirectionChoisie(Direction.haut))
                                 ret = true;
                         }
@@ -80,7 +80,7 @@ public class Controle4Directions extends RealisateurDeDeplacement {
                     case bas :
                         Entite _eBas = e.regarderDansLaDirection(Direction.bas);
 
-                        if (_eBas != null && _eBas.peutPermettreDeMonterDescendre()) {
+                        if (_eBas != null && (_eBas.peutServirDeSupport() || _eBas.peutPermettreDeMonterDescendre()) {
                             if (e.avancerDirectionChoisie(Direction.bas))
                                 ret = true;
                         }
