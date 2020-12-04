@@ -129,8 +129,8 @@ public class Jeu {
         }
 */
 
-        addEntite(new Bombe(this), 2, 3);
-        addEntite(new Bombe(this), 8, 8);
+        addEntite(new Ramassable(this), 2, 3);
+        addEntite(new Ramassable(this), 8, 8);
 
 
         //g.addEntiteDynamique(smick1);
@@ -243,17 +243,16 @@ public class Jeu {
     }
 
     public void supprimerEntite(EntiteDynamique e){
+        Point pt = new Point(map.get(e));
+        map.remove(e);
+        grilleEntites[pt.x][pt.y] = null;
         g.removeEntiteDynamique(e);
         if(e instanceof Bot)
             ia.removeEntiteDynamique(e);
         if(e instanceof Heros)
             Controle4Directions.getInstance().removeEntiteDynamique(e);
 
-        Point pt = new Point(map.get(e));
-        map.remove(e);
-        grilleEntites[pt.x][pt.y] = null;
     }
-    
     /** Permet par exemple a une entité  de percevoir sont environnement proche et de définir sa stratégie de déplacement
      *
      */

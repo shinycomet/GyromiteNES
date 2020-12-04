@@ -18,12 +18,12 @@ public class IA extends RealisateurDeDeplacement {
             Entite eBasDroite = e.regarderDansLaDirection(Direction.diagBasDroite);
 
             //bot touche un ramassable (radis)
-            if(e.getPrec() instanceof Bombe){
-                e.setEntitePrec(null); //detruit ramassable
+            if(e.getPrec() instanceof Ramassable){
+                //e.getJeu().supprimerEntite(e);
+                //((Bot) e).setenVie(); //detruit ramassable
                 //e.getJeu().getGameplay().incrementerScore();
             }
 
-            //e.getPrec().getJeu().supprimerEntite(e);
 
             toucheTerreFerme(e, eBas);
 
