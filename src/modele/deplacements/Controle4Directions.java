@@ -38,11 +38,15 @@ public class Controle4Directions extends RealisateurDeDeplacement {
         boolean ret = false;
         for (EntiteDynamique e : lstEntitesDynamiques) {
 
-           if(e.getPrec() instanceof Bombe){
+             if(e.getPrec() instanceof Bombe){
                 e.setEntitePrec(null);
-                System.out.println(e);
-                //e.getJeu().getGameplay().incrementerScore();
-                //e.getJeu().getGameplay().recupBombe(); ???
+                //e.getJeu().getGameplay().incrementerScore(); // a faire
+            }
+
+            if(e.getPrec() instanceof Bombe){
+                if(!((Heros)e).getRamassable())
+                    e.setEntitePrec(null);
+                    ((Heros)e).setRamassable(true);
             }
 
             if (directionCourante != null)
