@@ -43,7 +43,7 @@ public class Controle4Directions extends RealisateurDeDeplacement {
                 //e.getJeu().getGameplay().incrementerScore(); // a faire
             }
 
-            if(e.getPrec() instanceof Bombe){
+            if(e.getPrec() instanceof Ramassable){
                 if(!((Heros)e).getRamassable())
                     e.setEntitePrec(null);
                     ((Heros)e).setRamassable(true);
