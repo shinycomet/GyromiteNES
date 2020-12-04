@@ -13,6 +13,20 @@ public class Heros extends EntiteDynamique {
     public Heros(Jeu _jeu) {
         super(_jeu);
     }
+    public boolean detientRamassable;
+    public boolean solDirectionHeros; //changer de direction
+
+    public void setDirection(boolean dir){
+        if(dir)
+            solDirectionHeros = true;
+        else
+            solDirectionHeros = false;
+    }
+
+    public boolean getDirection(){return solDirectionHeros; }
+
+    public void setRamassable(boolean ram){detientRamassable = ram;}
+    public boolean getRamassable() {return detientRamassable;}
 
     public boolean peutEtreEcrase() { return true; }
     public boolean peutServirDeSupport() { return true; }
