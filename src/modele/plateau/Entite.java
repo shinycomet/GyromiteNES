@@ -10,6 +10,7 @@ import modele.deplacements.Direction;
 public abstract class Entite {
     protected Jeu jeu;
     public Entite prec;
+    public Entite courant;
 
     public Entite(Jeu _jeu) {
         jeu = _jeu;
@@ -17,6 +18,7 @@ public abstract class Entite {
     public Jeu getJeu(){ return jeu; }
     public Entite getPrec() { return prec; }
     public void setEntitePrec(Entite e){ prec = e; }
+    public void setEntiteCourant(Entite e){ courant = e; }
 
     public abstract boolean peutEtreEcrase(); // l'entité peut être écrasée (par exemple par une colonne ...)
     public abstract boolean peutServirDeSupport(); // permet de stopper la gravité, prendre appui pour sauter
