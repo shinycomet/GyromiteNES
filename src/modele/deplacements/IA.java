@@ -1,7 +1,5 @@
 package modele.deplacements;
 
-import java.util.Random;
-
 import modele.plateau.*;
 
 public class IA extends RealisateurDeDeplacement {
@@ -21,7 +19,7 @@ public class IA extends RealisateurDeDeplacement {
             if (e.getPrec() instanceof Bombe) {
                 e.setEntiteCourant(null);
                 e.setEntitePrec(null);
-                ((Bot) e).setPauseNotNull();
+                ((Bot)e).setPauseNotNull();
             }
 
             ((Bot)e).checkPause();
@@ -32,38 +30,38 @@ public class IA extends RealisateurDeDeplacement {
 
                 toucheTerreFerme(e, eBas);
 
-                if (!((Bot) e).surCorde && !((Bot) e).vole) {
+                if (!((Bot) e).getCorde() && !((Bot) e).getVole()) {
                     if (checkIfCorde(eHaut) && Math.random() > 0.5)
                         ret = grimperSurCordeVertical(e, true);
                     else if (checkIfCorde(eBas) && Math.random() > 0.5)
                         ret = grimperSurCordeVertical(e, false);
-                    else if (!((Bot) e).solDirection) {
+                    else if (!((Bot) e).getSolDirection()) {
                         if (checkHorizontal(eGauche, eBasGauche)) {
                             if (e.avancerDirectionChoisie(Direction.gauche)) {
-                                ((Bot) e).solDirection = false;
+                                ((Bot) e).setSolDirection(false);
                                 ret = true;
                             }
                         } else if (checkHorizontal(eDroite, eBasDroite)) {
                             if (e.avancerDirectionChoisie(Direction.droite)) {
-                                ((Bot) e).solDirection = true;
+                                ((Bot) e).setSolDirection(true);
                                 ret = true;
                             }
                         }
-                    } else if (((Bot) e).solDirection) {
+                    } else if (((Bot) e).getSolDirection()) {
                         if (checkHorizontal(eDroite, eBasDroite)) {
                             if (e.avancerDirectionChoisie(Direction.droite)) {
-                                ((Bot) e).solDirection = true;
+                                ((Bot) e).setSolDirection(true);
                                 ret = true;
                             }
                         } else if (checkHorizontal(eGauche, eBasGauche)) {
                             if (e.avancerDirectionChoisie(Direction.gauche)) {
-                                ((Bot) e).solDirection = false;
+                                ((Bot) e).setSolDirection(false);
                                 ret = true;
                             }
                         }
                     }
-                } else if (((Bot) e).surCorde) {
-                    if (((Bot) e).cordeDirection) {
+                } else if (((Bot) e).getCorde()) {
+                    if (((Bot) e).getCordeDirection()) {
                         if (checkIfCorde(eHaut))
                             if (e.avancerDirectionChoisie(Direction.haut))
                                 ret = true;
@@ -73,12 +71,12 @@ public class IA extends RealisateurDeDeplacement {
                             ret = grimperSurCordeHorizontal(e, false);
                         else {
                             if (e.avancerDirectionChoisie(Direction.bas)) {
-                                ((Bot) e).cordeDirection = false;
+                                ((Bot) e).setCordeDirection(false);
                                 ret = true;
                             }
                         }
                     }
-                    if (!((Bot) e).cordeDirection) {
+                    if (!((Bot) e).getCordeDirection()) {
                         if (checkIfCorde(eBas))
                             if (e.avancerDirectionChoisie(Direction.bas))
                                 ret = true;
@@ -88,7 +86,7 @@ public class IA extends RealisateurDeDeplacement {
                             ret = grimperSurCordeHorizontal(e, false);
                         else {
                             if (e.avancerDirectionChoisie(Direction.haut)) {
-                                ((Bot) e).cordeDirection = true;
+                                ((Bot) e).setCordeDirection(true);
                                 ret = true;
                             }
                         }
@@ -102,13 +100,13 @@ public class IA extends RealisateurDeDeplacement {
         public boolean grimperSurCordeVertical(EntiteDynamique e, boolean direction) {
             if (direction) {
                 if (e.avancerDirectionChoisie(Direction.haut)) {
-                    ((Bot) e).surCorde = true;
-                    ((Bot) e).cordeDirection = true;
+                    ((Bot) e).setCorde(true);
+                    ((Bot) e).setCordeDirection(true);
                 }
             } else {
                 if (e.avancerDirectionChoisie(Direction.bas)) {
-                    ((Bot) e).surCorde = false;
-                    ((Bot) e).cordeDirection = false;
+                    ((Bot) e).setCorde(false);
+                    ((Bot) e).setCordeDirection(false);
                 }
             }
             return true;
@@ -117,15 +115,15 @@ public class IA extends RealisateurDeDeplacement {
         public boolean grimperSurCordeHorizontal(EntiteDynamique e, boolean direction) {
             if (direction) {
                 if (e.avancerDirectionChoisie(Direction.droite)) {
-                    ((Bot) e).surCorde = false;
-                    ((Bot) e).vole = true;
-                    ((Bot) e).solDirection = true;
+                    ((Bot) e).setCorde(false);
+                    ((Bot) e).setVole(true);
+                    ((Bot) e).setSolDirection(true);
                 }
             } else {
                 if (e.avancerDirectionChoisie(Direction.gauche)) {
-                    ((Bot) e).surCorde = false;
-                    ((Bot) e).vole = true;
-                    ((Bot) e).solDirection = false;
+                    ((Bot) e).setCorde(false);
+                    ((Bot) e).setVole(true);
+                    ((Bot) e).setSolDirection(false);
                 }
             }
             return true;
@@ -160,28 +158,28 @@ public class IA extends RealisateurDeDeplacement {
 
     public void setCorde(Entite e, boolean on) {
         if (on)
-            ((Bot) e).surCorde = true;
+            ((Bot) e).setCorde(true);
         else
-            ((Bot) e).surCorde = false;
+            ((Bot) e).setCorde(false);
     }
 
     public void setVole(Entite e, boolean vole) {
         if (vole)
-            ((Bot) e).vole = true;
+            ((Bot) e).setVole(true);
         else
-            ((Bot) e).vole = false;
+            ((Bot) e).setVole(false);
     }
 
     public void setCordeDirection(Entite e, boolean dir) {
         if (dir)
-            ((Bot) e).cordeDirection = true;
+            ((Bot) e).setCordeDirection(true);
         else
-            ((Bot) e).cordeDirection = false;
+            ((Bot) e).setCordeDirection(false);
     }
 
     public void toucheTerreFerme(Entite e, Entite eBas) {
         if (eBas != null && eBas.peutServirDeSupport())
-            ((Bot) e).vole = false; //touche terre ferme donc ne vole plus
+            ((Bot) e).setVole(false); //touche terre ferme donc ne vole plus
 
     }
 
