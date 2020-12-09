@@ -17,7 +17,7 @@ public class Bot extends EntiteDynamique {
     public boolean cordeDirection; //true : monter, false : descendre
     private boolean enVie; //true en vie et false est mort, il n'est plus affiché et Bot ne tourne plus
     private int pauseSmick;// en paus elorsque un smick touche un radis
-    private pauseTime = 20; // temps de pause pour le smick lorsqu'il touche un radis
+    private int pauseTime = 15; // temps de pause pour le smick lorsqu'il touche un radis
 
     public Bot(Jeu _jeu) {
         super(_jeu);
@@ -26,15 +26,21 @@ public class Bot extends EntiteDynamique {
     public boolean getenVie() {return enVie;}
     public void setenVie() { enVie = !enVie;}
 
-    public void setPause(){
+    public void setPauseNotNull(){
         if(pauseSmick == 0)
             pauseSmick++;
-        else if(pauseSmick == pauseTime)
-            pauseSmick==0;
-        else 
+    }
+
+    public void checkPause(){
+        if(pauseSmick == pauseTime)
+            pauseSmick = 0;
+    }
+
+    public void setPauseIncremente(){
+        if(pauseSmick != 0)
             pauseSmick++;
     }
-    
+
     public int getPause(){
         return pauseSmick;
     }
