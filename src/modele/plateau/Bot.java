@@ -11,20 +11,34 @@ import modele.plateau.Jeu;
  * Ennemis (Smicks)
  */
 public class Bot extends EntiteDynamique {
-    public boolean vole; //savoir si le bot a sauter d'une corde pour eviter qu'il remonte sur la corde lorsqu'il tombe
-    public boolean surCorde; //true : sur corde sinon false
-    public boolean solDirection; //changer de direction; true droite et false gauche
-    public boolean cordeDirection; //true : monter, false : descendre
-    private boolean enVie; //true en vie et false est mort, il n'est plus affiché et Bot ne tourne plus
-    private int pauseSmick;// en paus elorsque un smick touche un radis
-    private int pauseTime = 15; // temps de pause pour le smick lorsqu'il touche un radis
+    private boolean vole; //savoir si le bot a sauter d'une corde pour eviter qu'il remonte sur la corde lorsqu'il tombe
+    private boolean surCorde; //true : sur corde sinon false
+    private boolean solDirection; //changer de direction; true droite et false gauche
+    private boolean cordeDirection; //true : monter, false : descendre
+    private int pauseSmick;// en pause elorsque un smick touche un radis
+    private int pauseTime = 20; // temps de pause pour le smick lorsqu'il touche un radis
 
     public Bot(Jeu _jeu) {
         super(_jeu);
     }
 
-    public boolean getenVie() {return enVie;}
-    public void setenVie() { enVie = !enVie;}
+    //joueur vole (tombe) ou pas
+    public void setVole(boolean dir){ vole = dir; }
+    public boolean getVole(){ return vole; }
+
+    //joueur sur corde ou pas
+    public void setCorde(boolean dir){ surCorde = dir; }
+    public boolean getCorde(){ return surCorde; }
+
+    //sol direction
+    public void setSolDirection(boolean dir){ solDirection = dir; }
+    public boolean getSolDirection(){ return solDirection; }
+
+    //corde direction
+    public void setCordeDirection(boolean dir){ cordeDirection = dir; }
+    public boolean getCordeDirection(){ return cordeDirection; }
+
+
 
     public void setPauseNotNull(){
         if(pauseSmick == 0)
