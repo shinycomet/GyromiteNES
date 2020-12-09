@@ -18,37 +18,38 @@ public class IA extends RealisateurDeDeplacement {
             Entite eBasDroite = e.regarderDansLaDirection(Direction.diagBasDroite);
 
             //bot touche un ramassable (radis)
-            if(e.getPrec() instanceof Ramassable){
+            if (e.getPrec() instanceof Bombe) {
                 e.setEntiteCourant(null);
                 e.setEntitePrec(null);
-                ((Bot)e).setPause();
+                ((Bot) e).setPauseNotNull();
             }
 
-            ((Bot)e).setPause();
+            ((Bot)e).checkPause();
 
-            if(((Bot)e).getPause == 0){
+            ((Bot)e).setPauseIncremente();
+
+            if (((Bot) e).getPause() == 0) {
 
                 toucheTerreFerme(e, eBas);
-
 
                 if (!((Bot) e).surCorde && !((Bot) e).vole) {
                     if (checkIfCorde(eHaut) && Math.random() > 0.5)
                         ret = grimperSurCordeVertical(e, true);
                     else if (checkIfCorde(eBas) && Math.random() > 0.5)
                         ret = grimperSurCordeVertical(e, false);
-                    else if (!((Bot)e).solDirection){
+                    else if (!((Bot) e).solDirection) {
                         if (checkHorizontal(eGauche, eBasGauche)) {
                             if (e.avancerDirectionChoisie(Direction.gauche)) {
                                 ((Bot) e).solDirection = false;
                                 ret = true;
                             }
-                        }else if (checkHorizontal(eDroite, eBasDroite)) {
+                        } else if (checkHorizontal(eDroite, eBasDroite)) {
                             if (e.avancerDirectionChoisie(Direction.droite)) {
                                 ((Bot) e).solDirection = true;
                                 ret = true;
                             }
                         }
-                    } else if (((Bot)e).solDirection) {
+                    } else if (((Bot) e).solDirection) {
                         if (checkHorizontal(eDroite, eBasDroite)) {
                             if (e.avancerDirectionChoisie(Direction.droite)) {
                                 ((Bot) e).solDirection = true;
@@ -61,9 +62,8 @@ public class IA extends RealisateurDeDeplacement {
                             }
                         }
                     }
-                }
-                else if(((Bot) e).surCorde) {
-                    if (((Bot)e).cordeDirection) {
+                } else if (((Bot) e).surCorde) {
+                    if (((Bot) e).cordeDirection) {
                         if (checkIfCorde(eHaut))
                             if (e.avancerDirectionChoisie(Direction.haut))
                                 ret = true;
@@ -73,12 +73,12 @@ public class IA extends RealisateurDeDeplacement {
                             ret = grimperSurCordeHorizontal(e, false);
                         else {
                             if (e.avancerDirectionChoisie(Direction.bas)) {
-                                ((Bot)e).cordeDirection = false;
+                                ((Bot) e).cordeDirection = false;
                                 ret = true;
                             }
                         }
                     }
-                    if (!((Bot)e).cordeDirection) {
+                    if (!((Bot) e).cordeDirection) {
                         if (checkIfCorde(eBas))
                             if (e.avancerDirectionChoisie(Direction.bas))
                                 ret = true;
@@ -88,13 +88,14 @@ public class IA extends RealisateurDeDeplacement {
                             ret = grimperSurCordeHorizontal(e, false);
                         else {
                             if (e.avancerDirectionChoisie(Direction.haut)) {
-                                ((Bot)e).cordeDirection = true;
+                                ((Bot) e).cordeDirection = true;
                                 ret = true;
                             }
                         }
                     }
                 }
             }
+        }
             return ret;
         }
 
@@ -127,9 +128,8 @@ public class IA extends RealisateurDeDeplacement {
                     ((Bot) e).solDirection = false;
                 }
             }
+            return true;
         }
-        return true;
-    }
 
     public boolean checkHorizontal(Entite e) {
         if (e != null && e.peutServirDeSupport())
