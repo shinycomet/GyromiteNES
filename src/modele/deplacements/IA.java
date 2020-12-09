@@ -19,109 +19,113 @@ public class IA extends RealisateurDeDeplacement {
 
             //bot touche un ramassable (radis)
             if(e.getPrec() instanceof Ramassable){
-                //e.getJeu().supprimerEntite(e);
-                //((Bot) e).setenVie(); //detruit ramassable
-                //e.getJeu().getGameplay().incrementerScore();
+                e.setEntiteCourant(null);
+                e.setEntitePrec(null);
+                ((Bot)e).setPause();
             }
 
+            ((Bot)e).setPause();
 
-            toucheTerreFerme(e, eBas);
+            if(((Bot)e).getPause == 0){
+
+                toucheTerreFerme(e, eBas);
 
 
-            if (!((Bot) e).surCorde && !((Bot) e).vole) {
-                if (checkIfCorde(eHaut) && Math.random() > 0.5)
-                    ret = grimperSurCordeVertical(e, true);
-                else if (checkIfCorde(eBas) && Math.random() > 0.5)
-                    ret = grimperSurCordeVertical(e, false);
-                else if (!((Bot)e).solDirection){
-                    if (checkHorizontal(eGauche, eBasGauche)) {
-                        if (e.avancerDirectionChoisie(Direction.gauche)) {
-                            ((Bot) e).solDirection = false;
-                            ret = true;
+                if (!((Bot) e).surCorde && !((Bot) e).vole) {
+                    if (checkIfCorde(eHaut) && Math.random() > 0.5)
+                        ret = grimperSurCordeVertical(e, true);
+                    else if (checkIfCorde(eBas) && Math.random() > 0.5)
+                        ret = grimperSurCordeVertical(e, false);
+                    else if (!((Bot)e).solDirection){
+                        if (checkHorizontal(eGauche, eBasGauche)) {
+                            if (e.avancerDirectionChoisie(Direction.gauche)) {
+                                ((Bot) e).solDirection = false;
+                                ret = true;
+                            }
+                        }else if (checkHorizontal(eDroite, eBasDroite)) {
+                            if (e.avancerDirectionChoisie(Direction.droite)) {
+                                ((Bot) e).solDirection = true;
+                                ret = true;
+                            }
                         }
-                    }else if (checkHorizontal(eDroite, eBasDroite)) {
-                        if (e.avancerDirectionChoisie(Direction.droite)) {
-                            ((Bot) e).solDirection = true;
-                            ret = true;
+                    } else if (((Bot)e).solDirection) {
+                        if (checkHorizontal(eDroite, eBasDroite)) {
+                            if (e.avancerDirectionChoisie(Direction.droite)) {
+                                ((Bot) e).solDirection = true;
+                                ret = true;
+                            }
+                        } else if (checkHorizontal(eGauche, eBasGauche)) {
+                            if (e.avancerDirectionChoisie(Direction.gauche)) {
+                                ((Bot) e).solDirection = false;
+                                ret = true;
+                            }
                         }
                     }
-                } else if (((Bot)e).solDirection) {
-                    if (checkHorizontal(eDroite, eBasDroite)) {
-                        if (e.avancerDirectionChoisie(Direction.droite)) {
-                            ((Bot) e).solDirection = true;
-                            ret = true;
+                }
+                else if(((Bot) e).surCorde) {
+                    if (((Bot)e).cordeDirection) {
+                        if (checkIfCorde(eHaut))
+                            if (e.avancerDirectionChoisie(Direction.haut))
+                                ret = true;
+                        if (checkHorizontal(eDroite) && Math.random() > 0.5)
+                            ret = grimperSurCordeHorizontal(e, true);
+                        if (checkHorizontal(eGauche) && Math.random() > 0.5)
+                            ret = grimperSurCordeHorizontal(e, false);
+                        else {
+                            if (e.avancerDirectionChoisie(Direction.bas)) {
+                                ((Bot)e).cordeDirection = false;
+                                ret = true;
+                            }
                         }
-                    } else if (checkHorizontal(eGauche, eBasGauche)) {
-                        if (e.avancerDirectionChoisie(Direction.gauche)) {
-                            ((Bot) e).solDirection = false;
-                            ret = true;
+                    }
+                    if (!((Bot)e).cordeDirection) {
+                        if (checkIfCorde(eBas))
+                            if (e.avancerDirectionChoisie(Direction.bas))
+                                ret = true;
+                        if (checkHorizontal(eDroite) && Math.random() > 0.5)
+                            ret = grimperSurCordeHorizontal(e, true);
+                        if (checkHorizontal(eGauche) && Math.random() > 0.5)
+                            ret = grimperSurCordeHorizontal(e, false);
+                        else {
+                            if (e.avancerDirectionChoisie(Direction.haut)) {
+                                ((Bot)e).cordeDirection = true;
+                                ret = true;
+                            }
                         }
                     }
                 }
             }
-            else if(((Bot) e).surCorde) {
-                if (((Bot)e).cordeDirection) {
-                    if (checkIfCorde(eHaut))
-                        if (e.avancerDirectionChoisie(Direction.haut))
-                            ret = true;
-                    if (checkHorizontal(eDroite) && Math.random() > 0.5)
-                        ret = grimperSurCordeHorizontal(e, true);
-                    if (checkHorizontal(eGauche) && Math.random() > 0.5)
-                        ret = grimperSurCordeHorizontal(e, false);
-                    else {
-                        if (e.avancerDirectionChoisie(Direction.bas)) {
-                            ((Bot)e).cordeDirection = false;
-                            ret = true;
-                        }
-                    }
-                }
-                if (!((Bot)e).cordeDirection) {
-                    if (checkIfCorde(eBas))
-                        if (e.avancerDirectionChoisie(Direction.bas))
-                            ret = true;
-                    if (checkHorizontal(eDroite) && Math.random() > 0.5)
-                        ret = grimperSurCordeHorizontal(e, true);
-                    if (checkHorizontal(eGauche) && Math.random() > 0.5)
-                        ret = grimperSurCordeHorizontal(e, false);
-                    else {
-                        if (e.avancerDirectionChoisie(Direction.haut)) {
-                            ((Bot)e).cordeDirection = true;
-                            ret = true;
-                        }
-                    }
-                }
-            }
+            return ret;
         }
-        return ret;
-    }
 
-    public boolean grimperSurCordeVertical(EntiteDynamique e, boolean direction) {
-        if (direction) {
-            if (e.avancerDirectionChoisie(Direction.haut)) {
-                ((Bot) e).surCorde = true;
-                ((Bot) e).cordeDirection = true;
+        public boolean grimperSurCordeVertical(EntiteDynamique e, boolean direction) {
+            if (direction) {
+                if (e.avancerDirectionChoisie(Direction.haut)) {
+                    ((Bot) e).surCorde = true;
+                    ((Bot) e).cordeDirection = true;
+                }
+            } else {
+                if (e.avancerDirectionChoisie(Direction.bas)) {
+                    ((Bot) e).surCorde = false;
+                    ((Bot) e).cordeDirection = false;
+                }
             }
-        } else {
-            if (e.avancerDirectionChoisie(Direction.bas)) {
-                ((Bot) e).surCorde = false;
-                ((Bot) e).cordeDirection = false;
-            }
+            return true;
         }
-        return true;
-    }
 
-    public boolean grimperSurCordeHorizontal(EntiteDynamique e, boolean direction) {
-        if (direction) {
-            if (e.avancerDirectionChoisie(Direction.droite)) {
-                ((Bot) e).surCorde = false;
-                ((Bot) e).vole = true;
-                ((Bot) e).solDirection = true;
-            }
-        } else {
-            if (e.avancerDirectionChoisie(Direction.gauche)) {
-                ((Bot) e).surCorde = false;
-                ((Bot) e).vole = true;
-                ((Bot) e).solDirection = false;
+        public boolean grimperSurCordeHorizontal(EntiteDynamique e, boolean direction) {
+            if (direction) {
+                if (e.avancerDirectionChoisie(Direction.droite)) {
+                    ((Bot) e).surCorde = false;
+                    ((Bot) e).vole = true;
+                    ((Bot) e).solDirection = true;
+                }
+            } else {
+                if (e.avancerDirectionChoisie(Direction.gauche)) {
+                    ((Bot) e).surCorde = false;
+                    ((Bot) e).vole = true;
+                    ((Bot) e).solDirection = false;
+                }
             }
         }
         return true;
