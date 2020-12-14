@@ -36,6 +36,7 @@ public class Controle4Directions extends RealisateurDeDeplacement {
 
     public boolean realiserDeplacement() {
         boolean ret = false;
+        checkForSmick();
         for (EntiteDynamique e : lstEntitesDynamiques) {
 
              if(e.getPrec() instanceof Bombe){
@@ -92,6 +93,15 @@ public class Controle4Directions extends RealisateurDeDeplacement {
                 }
         }
         return ret;
+    }
+
+    public void checkForSmick(){
+        for (EntiteDynamique e : lstEntitesDynamiques) {
+            Entite eDroite = e.regarderDansLaDirection(Direction.droite);
+            Entite eGauche = e.regarderDansLaDirection(Direction.gauche);
+            if(eDroite instanceof Bot || eGauche instanceof Bot)
+                e.getJeu().finPartie(e);
+        }
     }
 
     public void resetDirection() {

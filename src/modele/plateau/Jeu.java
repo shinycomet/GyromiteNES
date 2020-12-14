@@ -39,6 +39,7 @@ public class Jeu {
     private Ramassable [] ramassables;
 
     private int nbBombe;
+    private boolean estFini;
 
     private HashMap<Entite, Point> map = new  HashMap<Entite, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     private Entite[][] grilleEntites = new Entite[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
@@ -68,9 +69,13 @@ public class Jeu {
     public Heros getHector() {
         return hector;
     }
+
+    public boolean getestFini(){
+        return estFini;
+    }
     
     private void initialisationDesEntites() {
-
+        estFini = false;
 
         hector = new Heros(this);
         addEntite(hector, 2, 6);
@@ -243,9 +248,9 @@ public class Jeu {
     }
 
     public void supprimerEntite(EntiteDynamique e){
-        Point pt = new Point(map.get(e));
-        map.remove(e);
-        grilleEntites[pt.x][pt.y] = null;
+        //Point pt = new Point(map.get(e));
+        //map.remove(e);
+        //grilleEntites[pt.x][pt.y] = null;
         g.removeEntiteDynamique(e);
         if(e instanceof Bot)
             ia.removeEntiteDynamique(e);
@@ -341,5 +346,10 @@ public class Jeu {
 
     public Ordonnanceur getOrdonnanceur() {
         return ordonnanceur;
+    }
+
+    public void finPartie(EntiteDynamique e){
+        estFini = true;
+        //initialisationDesEntites();
     }
 }
