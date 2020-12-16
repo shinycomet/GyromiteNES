@@ -305,6 +305,28 @@ public class Jeu {
         }
         return pCible;
     }
+
+    public void deposerRamassable(EntiteDynamique e, boolean dir){
+        Entite eGauche = e.regarderDansLaDirection(Direction.gauche);
+        Entite eDroite = e.regarderDansLaDirection(Direction.droite);
+        Point pt = new Point(map.get(e));
+        Ramassable ram;
+        if(dir){
+            if(eDroite == null || eDroite instanceof Vide) {
+                ram = new Ramassable(this);
+                addEntite(ram, pt.x + 1, pt.y);
+                g.addEntiteDynamique(ram);
+                ordonnanceur.add(g);
+            }
+        }else{
+            if(eGauche == null || eGauche instanceof Vide) {
+                ram = new Ramassable(this);
+                addEntite(ram, pt.x - 1, pt.y);
+                g.addEntiteDynamique(ram);
+                ordonnanceur.add(g);
+            }
+        }
+    }
     
     private void deplacerEntite(Point pCourant, Point pCible, Entite e) {
         grilleEntites[pCourant.x][pCourant.y] = e.prec;
