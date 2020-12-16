@@ -109,19 +109,6 @@ public class Jeu {
         ia.addEntiteDynamique(smick2);
         ordonnanceur.add(ia);
 
-
-        
-        cordes = new Corde[10];
-        for(int i=0;i<5;++i){
-            cordes[i] = new Corde(this);
-            addEntite(cordes[i],5,1+i);
-        }
-
-        for(int i=1;i<8;++i){
-            cordes[i] = new Corde(this);
-            addEntite(new Corde(this),10,9-i);
-        }
-
         cordes = new Corde[10];
         //1ere corde
         for(int i=0;i<5;++i){
