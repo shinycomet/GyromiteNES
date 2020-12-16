@@ -16,12 +16,11 @@ public class Heros extends EntiteDynamique {
     public boolean detientRamassable;
     public boolean solDirectionHeros; //changer de direction
 
-    public void setDirection(boolean dir){
-        if(dir)
-            solDirectionHeros = true;
-        else
-            solDirectionHeros = false;
-    }
+    private int score;
+    public void incrementerScore(int val){ score += val; }
+    public int getScore(){return score;}
+
+    public void setDirection(boolean dir) { solDirectionHeros = (dir) ?  true : false; }
 
     public boolean getDirection(){return solDirectionHeros; }
 
