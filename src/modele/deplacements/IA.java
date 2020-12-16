@@ -15,7 +15,6 @@ public class IA extends RealisateurDeDeplacement {
             Entite eBasGauche = e.regarderDansLaDirection(Direction.diagBasGauche);
             Entite eBasDroite = e.regarderDansLaDirection(Direction.diagBasDroite);
 
-            //bot touche un ramassable (radis)
             if (e.getPrec() instanceof Ramassable) {
                 e.setEntiteCourant(null);
                 e.setEntitePrec(null);
@@ -180,7 +179,5 @@ public class IA extends RealisateurDeDeplacement {
     public void toucheTerreFerme(Entite e, Entite eBas) {
         if (eBas != null && eBas.peutServirDeSupport())
             ((Bot) e).setVole(false); //touche terre ferme donc ne vole plus
-
     }
-
 }

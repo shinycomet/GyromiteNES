@@ -43,7 +43,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoDroiteColonne;
     private ImageIcon icoGaucheColonne;
 
-    int debut = 10, milieu = 20, fin = 30;
+    int debut = 10, milieu = 20 , fin = 30;
     long divider = 1000000000;
     long startTime, endTime, duration;
 
@@ -137,8 +137,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
-                if (jeu.getGrille()[x][y] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
-                    // System.out.println("Héros !");
+                if (jeu.getGrille()[x][y] instanceof Heros) { 
                     tabJLabel[x][y].setIcon(icoHero);
                 } else if (jeu.getGrille()[x][y] instanceof Bot) {
                     tabJLabel[x][y].setIcon(icoBot);
@@ -183,6 +182,5 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     }
                 }); 
         */
-
     }
 }

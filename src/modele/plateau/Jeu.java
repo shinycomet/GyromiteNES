@@ -103,12 +103,6 @@ public class Jeu {
             ordonnanceur.add(col.getInstance());
         }
 
-
-        smick2 = new Bot(this);
-        addEntite(smick2,9,1);
-        ia.addEntiteDynamique(smick2);
-        ordonnanceur.add(ia);
-
         cordes = new Corde[10];
         //1ere corde
         for(int i=0;i<5;++i){
