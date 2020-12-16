@@ -16,7 +16,7 @@ public class IA extends RealisateurDeDeplacement {
             Entite eBasDroite = e.regarderDansLaDirection(Direction.diagBasDroite);
 
             //bot touche un ramassable (radis)
-            if (e.getPrec() instanceof Bombe) {
+            if (e.getPrec() instanceof Ramassable) {
                 e.setEntiteCourant(null);
                 e.setEntitePrec(null);
                 ((Bot)e).setPauseNotNull();
