@@ -32,11 +32,12 @@ public class Jeu {
     private HashMap<Entite, Integer> cmptDeplV = new HashMap<Entite, Integer>();
 
     private Heros hector;
-    private Bot smick1,smick2;
+    private Bombe [] bombe;
+    private Bot smick1;
     private Corde [] cordes;
-    private Colonne [] colonnes;
-    private Colonnes colo;
     private Ramassable [] ramassables;
+    private Colonnes [] colonnesBleu;
+    private Colonnes [] colonnesRouge;
 
     private int nbBombe;
     private boolean estFini;
@@ -79,15 +80,29 @@ public class Jeu {
 
         hector = new Heros(this);
         addEntite(hector, 2, 6);
+        g.addEntiteDynamique(hector);
+        ordonnanceur.add(g);
+        Controle4Directions.getInstance().addEntiteDynamique(hector);
+        ordonnanceur.add(Controle4Directions.getInstance());
 
-        /* tout marche, il suffit de les placer au bon endroits au final(semi-random car les collones doivent etre a cote des plateformes, et les smick sur des plateformes)*/
-
-        /*
         smick1 = new Bot(this);
-        addEntite(smick1,9,8);
+        addEntite(smick1,14,1);
         ia.addEntiteDynamique(smick1);
         ordonnanceur.add(ia);
-*/
+        g.addEntiteDynamique(smick1);
+        ordonnanceur.add(g);
+
+        //colonnes bleu
+        colonnesBleu = new Colonnes[2];
+        for(int i=0;i<2;++i){
+            colonnesBleu[i] = new Colonnes(this);
+            colonnesBleu[i].setCouleur(Couleur.bleu);
+            addEntite(colonnesBleu[i],11+i,7);
+            Colonne col = new Colonne();
+            col.getInstance().addEntiteDynamique(colonnesBleu[i]);
+            ordonnanceur.add(col.getInstance());
+        }
+
 
         smick2 = new Bot(this);
         addEntite(smick2,9,1);
@@ -95,26 +110,7 @@ public class Jeu {
         ordonnanceur.add(ia);
 
 
-        colo = new Colonnes(this);
-        colo.setCouleur(Couleur.bleu);
-        //colo.setHautOuBas(false);
-        // colo.setMove(true);
-        addEntite(colo, 11,7);
-        Colonne col = new Colonne();
-        col.getInstance().addEntiteDynamique(colo);
-        ordonnanceur.add(col.getInstance());
-
-        /*
-        colonnes = new Colonne[3];
-        for(int i=0;i<3;++i){
-            colonnes[i] = new Colonne(this);
-            addEntite(colonnes[i],12,6+i);
-            colonnes[i].setHautOuBas(false);
-            Controle4Directions.getInstance().addEntiteDynamique(colonnes[i]);
-            ordonnanceur.add(Controle4Directions.getInstance());
-        }
-
-*/
+        
         cordes = new Corde[10];
         for(int i=0;i<5;++i){
             cordes[i] = new Corde(this);
@@ -126,29 +122,30 @@ public class Jeu {
             addEntite(new Corde(this),10,9-i);
         }
 
-        /*
-        ramassables = new Ramassable[3];
+        cordes = new Corde[10];
+        //1ere corde
+        for(int i=0;i<5;++i){
+            cordes[i] = new Corde(this);
+            addEntite(cordes[i],5,1+i);
+        }
+        //2eme corde
+        for(int i=0;i<5;++i){
+            cordes[i] = new Corde(this);
+            addEntite(cordes[i],5,1+i);
+        }
+
+        ramassables = new Ramassable[5];
         for(int i=0;i<3;++i){
             ramassables[i] = new Ramassable(this);
-            addEntite(ramassables[i],7+i,8);
+            addEntite(ramassables[i],5+i,8);
         }
-*/
+        //addEntite(new Ramassable(this), 8, 8);
 
-        addEntite(new Ramassable(this), 2, 3);
-        addEntite(new Ramassable(this), 8, 8);
-
-
-        //g.addEntiteDynamique(smick1);
-        //ordonnanceur.add(g);
-
-        g.addEntiteDynamique(smick2);
-        ordonnanceur.add(g);
-
-        g.addEntiteDynamique(hector);
-        ordonnanceur.add(g);
-
-        Controle4Directions.getInstance().addEntiteDynamique(hector);
-        ordonnanceur.add(Controle4Directions.getInstance());
+        bombe = new Bombe[3];
+        for(int i=0;i<3;++i){
+            bombe[i] = new Bombe(this);
+            addEntite(bombe[i],1+i,8);
+        }
 
         // murs extérieurs horizontaux
         for (int x = 0; x < 20; x++) {
